@@ -1,99 +1,139 @@
 [
   {
+    "type": "webhook",
     "name": "get_inventory",
-    "description": "Retrieves the full list of inventory items, including their details like price and quantity.",
-    "parameters": {
-      "type": "object",
-      "properties": {}
-    }
+    "description": "Retrieves the full list of inventory items.",
+    "api_schema": {
+      "url": "https://count-ai-api.onrender.com/inventory",
+      "method": "GET",
+      "path_params_schema": [],
+      "query_params_schema": [],
+      "request_body_schema": null,
+      "request_headers": [],
+      "auth_connection": null
+    },
+    "dynamic_variables": {
+      "dynamic_variable_placeholders": {}
+    },
+    "assignments": [],
+    "disable_interruptions": false,
+    "tool_call_sound": null,
+    "tool_call_sound_behavior": "auto",
+    "response_timeout_secs": 20,
+    "force_pre_tool_speech": "auto",
+    "execution_mode": "immediate"
   },
   {
-    "name": "update_inventory_item",
-    "description": "Updates the details (price, quantity, name) of a specific inventory item by its ID. Provide only the fields you want to update.",
-    "parameters": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "integer",
-          "description": "The unique ID of the inventory item to update."
-        },
-        "price": {
-          "type": "number",
-          "description": "The new price of the item."
-        },
-        "quantity": {
-          "type": "integer",
-          "description": "The new quantity of the item."
-        },
-        "name": {
-          "type": "string",
-          "description": "The new name of the item."
-        }
-      },
-      "required": [
-        "id"
-      ]
-    }
-  },
-  {
-    "name": "update_inventory_by_name",
-    "description": "Updates the details of an inventory item by looking it up by name.",
-    "parameters": {
-      "type": "object",
-      "properties": {
-        "name": {
-          "type": "string",
-          "description": "The name of the item to update (e.g., 'Pizza')."
-        },
-        "quantity": {
-          "type": "integer",
-          "description": "The new quantity of the item."
-        }
-      },
-      "required": [
-        "name"
-      ]
-    }
-  },
-  {
+    "type": "webhook",
     "name": "get_low_stock_items",
-    "description": "Retrieves a list of items that have a quantity of less than 10. Useful for checking what needs restocking.",
-    "parameters": {
-      "type": "object",
-      "properties": {}
-    }
+    "description": "Retrieves current inventory items that are below their reorder level.",
+    "api_schema": {
+      "url": "https://count-ai-api.onrender.com/inventory/low-stock",
+      "method": "GET",
+      "path_params_schema": [],
+      "query_params_schema": [],
+      "request_body_schema": null,
+      "request_headers": [],
+      "auth_connection": null
+    },
+    "dynamic_variables": {
+      "dynamic_variable_placeholders": {}
+    },
+    "assignments": [],
+    "disable_interruptions": false,
+    "tool_call_sound": null,
+    "tool_call_sound_behavior": "auto",
+    "response_timeout_secs": 20,
+    "force_pre_tool_speech": "auto",
+    "execution_mode": "immediate"
   },
   {
+    "type": "webhook",
     "name": "place_order",
-    "description": "Places a new order for one or more items. Reduces inventory stock accordingly.",
-    "parameters": {
-      "type": "object",
-      "properties": {
-        "items": {
-          "type": "array",
-          "description": "List of items to order. Each item must have an 'id' and 'quantity'.",
+    "description": "Places a purchase order to restock inventory items.",
+    "api_schema": {
+      "url": "https://count-ai-api.onrender.com/orders",
+      "method": "POST",
+      "path_params_schema": [],
+      "query_params_schema": [],
+      "request_body_schema": {
+        "type": "object",
+        "properties": {
           "items": {
-            "type": "object",
-            "properties": {
-              "name": {
-                "type": "string",
-                "description": "Name of the item."
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "description": "Name of the item to restock"
+                },
+                "quantity": {
+                  "type": "integer",
+                  "description": "Quantity to add"
+                }
               },
-              "quantity": {
-                "type": "integer",
-                "description": "Quantity to order."
-              }
-            },
-            "required": [
-              "name",
-              "quantity"
-            ]
+              "required": [
+                "name",
+                "quantity"
+              ]
+            }
+          }
+        },
+        "required": [
+          "items"
+        ]
+      },
+      "request_headers": [],
+      "auth_connection": null
+    },
+    "dynamic_variables": {
+      "dynamic_variable_placeholders": {}
+    },
+    "assignments": [],
+    "disable_interruptions": false,
+    "tool_call_sound": null,
+    "tool_call_sound_behavior": "auto",
+    "response_timeout_secs": 20,
+    "force_pre_tool_speech": "auto",
+    "execution_mode": "immediate"
+  },
+  {
+    "type": "webhook",
+    "name": "update_inventory_by_name",
+    "description": "Updates details (price, quantity) of a specific inventory item by name.",
+    "api_schema": {
+      "url": "https://count-ai-api.onrender.com/inventory/name/{name}",
+      "method": "PUT",
+      "path_params_schema": [
+        {
+          "name": "name",
+          "type": "string",
+          "description": "Name of the item to update"
+        }
+      ],
+      "query_params_schema": [],
+      "request_body_schema": {
+        "type": "object",
+        "properties": {
+          "quantity": {
+            "type": "integer",
+            "description": "New quantity"
           }
         }
       },
-      "required": [
-        "items"
-      ]
-    }
+      "request_headers": [],
+      "auth_connection": null
+    },
+    "dynamic_variables": {
+      "dynamic_variable_placeholders": {}
+    },
+    "assignments": [],
+    "disable_interruptions": false,
+    "tool_call_sound": null,
+    "tool_call_sound_behavior": "auto",
+    "response_timeout_secs": 20,
+    "force_pre_tool_speech": "auto",
+    "execution_mode": "immediate"
   }
 ]

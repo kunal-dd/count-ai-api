@@ -51,8 +51,8 @@ Retrieves items with quantity less than 10.
   - **Code**: 200 OK
   - **Content**: Array of low-stock inventory objects.
 
-### 5. Place Order
-Places a new order, updates inventory, and records the order.
+### 5. Place Order (Restock)
+Places a purchase order to restock items. Increases inventory quantity.
 
 - **URL**: `/orders`
 - **Method**: `POST`

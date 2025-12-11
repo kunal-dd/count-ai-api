@@ -5,7 +5,9 @@ const path = require('path');
 
 const app = express();
 const PORT = 3000;
+const cors = require('cors');
 
+app.use(cors());
 app.use(bodyParser.json());
 
 const INVENTORY_FILE = path.join(__dirname, 'inventory.json');
@@ -75,11 +77,17 @@ app.put('/inventory/name/:name', (req, res) => {
 // 3. Get low stock items
 app.get('/inventory/low-stock', (req, res) => {
   const inventory = readData(INVENTORY_FILE);
-  const lowStockItems = inventory.filter(item => item.quantity < 10);
+  const lowStockItems = inventory.filter(item => item.quantity < (item.reorderLevel || 10));
   res.json(lowStockItems);
 });
 
-// 4. Place order
+// 4. Get all orders
+app.get('/orders', (req, res) => {
+  const orders = readData(ORDERS_FILE);
+  res.json(orders);
+});
+
+// 5. Place order
 app.post('/orders', (req, res) => {
   const orderItems = req.body.items; // Expecting [{ id: 1, quantity: 2 }]
 
@@ -103,11 +111,12 @@ app.post('/orders', (req, res) => {
     if (!item) {
       return res.status(404).json({ error: `Item '${orderItem.name || orderItem.id}' not found` });
     }
-    if (item.quantity < orderItem.quantity) {
-      return res.status(400).json({ error: `Insufficient stock for ${item.name}` });
-    }
+    // For restocking, we don't check for insufficient stock.
+    // We calculate total cost of the purchase order.
     totalAmount += item.price * orderItem.quantity;
-    itemsToUpdate.push({ index: inventory.indexOf(item), newQuantity: item.quantity - orderItem.quantity });
+
+    // INCREASE inventory
+    itemsToUpdate.push({ index: inventory.indexOf(item), newQuantity: item.quantity + orderItem.quantity });
   }
 
   // Update inventory
