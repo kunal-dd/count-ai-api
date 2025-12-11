@@ -1,0 +1,42 @@
+[
+  {
+    "id": "SUP-001",
+    "name": "Fresh Farms",
+    "contact": "John Green",
+    "email": "john@freshfarms.co.uk",
+    "phone": "+44 161 496 0732",
+    "category": "Produce",
+    "rating": 4.9,
+    "lastOrder": "2025-12-10"
+  },
+  {
+    "id": "SUP-002",
+    "name": "Premium Meats",
+    "contact": "Robert Smith",
+    "email": "robert@premiummeats.co.uk",
+    "phone": "+44 113 496 0621",
+    "category": "Meat & Poultry",
+    "rating": 4.7,
+    "lastOrder": "2025-12-08"
+  },
+  {
+    "id": "SUP-003",
+    "name": "Spirit Masters",
+    "contact": "David Brown",
+    "email": "david@spiritmasters.co.uk",
+    "phone": "+44 117 496 0398",
+    "category": "Spirits",
+    "rating": 4.8,
+    "lastOrder": "2025-12-04"
+  },
+  {
+    "id": "SUP-004",
+    "name": "Beverage Plus",
+    "contact": "Amy Taylor",
+    "email": "amy@beverageplus.co.uk",
+    "phone": "+44 151 496 0287",
+    "category": "Beverages",
+    "rating": 4.3,
+    "lastOrder": "2025-12-06"
+  }
+]

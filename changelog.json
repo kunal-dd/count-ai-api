@@ -1,0 +1,69 @@
+[
+  {
+    "id": "log-1",
+    "itemId": "1",
+    "timestamp": "2025-12-01T10:30:00Z",
+    "user": "John D.",
+    "type": "inventory-count",
+    "previousQuantity": 15,
+    "newQuantity": 12
+  },
+  {
+    "id": "log-2",
+    "itemId": "1",
+    "timestamp": "2025-11-25T14:20:00Z",
+    "user": "System",
+    "type": "order-received",
+    "previousQuantity": 5,
+    "newQuantity": 15,
+    "orderId": "ORD-004",
+    "supplier": "Fresh Farms"
+  },
+  {
+    "id": "log-3",
+    "itemId": "2",
+    "timestamp": "2025-12-05T11:45:00Z",
+    "user": "Mike R.",
+    "type": "inventory-count",
+    "previousQuantity": 30,
+    "newQuantity": 25
+  },
+  {
+    "id": "log-4",
+    "itemId": "3",
+    "timestamp": "2025-12-10T08:30:00Z",
+    "user": "John D.",
+    "type": "inventory-count",
+    "previousQuantity": 20,
+    "newQuantity": 8
+  },
+  {
+    "id": "log-5",
+    "itemId": "4",
+    "timestamp": "2025-12-08T10:00:00Z",
+    "user": "Sarah M.",
+    "type": "inventory-count",
+    "previousQuantity": 25,
+    "newQuantity": 15
+  },
+  {
+    "id": "log-6",
+    "itemId": "4",
+    "timestamp": "2025-12-08T16:00:00Z",
+    "user": "System",
+    "type": "order-received",
+    "previousQuantity": 15,
+    "newQuantity": 45,
+    "orderId": "ORD-005",
+    "supplier": "Premium Meats"
+  },
+  {
+    "id": "log-7",
+    "itemId": "5",
+    "timestamp": "2025-12-07T14:30:00Z",
+    "user": "John D.",
+    "type": "inventory-count",
+    "previousQuantity": 12,
+    "newQuantity": 6
+  }
+]

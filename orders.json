@@ -1,13 +1,132 @@
 [
   {
-    "id": 1,
+    "id": "ORD-001",
+    "supplier": "Fresh Farms",
     "items": [
       {
-        "id": 1,
-        "quantity": 2
+        "id": "item-1",
+        "itemName": "Tomatoes",
+        "quantity": 20,
+        "unit": "kg",
+        "price": 4.99
+      },
+      {
+        "id": "item-2",
+        "itemName": "Heavy Cream",
+        "quantity": 10,
+        "unit": "L",
+        "price": 5.99
       }
     ],
-    "total": 24,
-    "date": "2025-12-10T11:32:30.468Z"
+    "status": "low-stock",
+    "orderDate": "2025-12-11",
+    "totalValue": 159.7,
+    "expectedDate": "2025-12-14"
+  },
+  {
+    "id": "ORD-002",
+    "supplier": "Spirit Masters",
+    "items": [
+      {
+        "id": "item-3",
+        "itemName": "Whiskey Bourbon",
+        "quantity": 6,
+        "unit": "bottles",
+        "price": 45
+      },
+      {
+        "id": "item-4",
+        "itemName": "Angostura Bitters",
+        "quantity": 4,
+        "unit": "bottles",
+        "price": 14
+      }
+    ],
+    "status": "order-placed",
+    "orderDate": "2025-12-10",
+    "expectedDate": "2025-12-13",
+    "totalValue": 326
+  },
+  {
+    "id": "ORD-003",
+    "supplier": "Premium Meats",
+    "items": [
+      {
+        "id": "item-5",
+        "itemName": "Salmon Fillet",
+        "quantity": 10,
+        "unit": "kg",
+        "price": 24.99
+      }
+    ],
+    "status": "order-placed",
+    "orderDate": "2025-12-09",
+    "expectedDate": "2025-12-12",
+    "totalValue": 249.9
+  },
+  {
+    "id": "ORD-004",
+    "supplier": "Fresh Farms",
+    "items": [
+      {
+        "id": "item-6",
+        "itemName": "Olive Oil",
+        "quantity": 24,
+        "unit": "L",
+        "price": 15.99
+      }
+    ],
+    "status": "order-received",
+    "orderDate": "2025-12-05",
+    "expectedDate": "2025-12-10",
+    "totalValue": 383.76
+  },
+  {
+    "id": "ORD-005",
+    "supplier": "Premium Meats",
+    "items": [
+      {
+        "id": "item-7",
+        "itemName": "Chicken Breast",
+        "quantity": 30,
+        "unit": "kg",
+        "price": 12.99
+      }
+    ],
+    "status": "order-received",
+    "orderDate": "2025-12-03",
+    "expectedDate": "2025-12-08",
+    "totalValue": 389.7
+  },
+  {
+    "id": "ORD-006",
+    "supplier": "Spirit Masters",
+    "items": [
+      {
+        "id": "item-8",
+        "itemName": "Vodka Premium",
+        "quantity": 12,
+        "unit": "bottles",
+        "price": 32
+      },
+      {
+        "id": "item-9",
+        "itemName": "Gin London Dry",
+        "quantity": 8,
+        "unit": "bottles",
+        "price": 28
+      },
+      {
+        "id": "item-10",
+        "itemName": "Tequila Blanco",
+        "quantity": 6,
+        "unit": "bottles",
+        "price": 38
+      }
+    ],
+    "status": "order-received",
+    "orderDate": "2025-12-02",
+    "expectedDate": "2025-12-07",
+    "totalValue": 836
   }
 ]
