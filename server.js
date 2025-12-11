@@ -93,9 +93,15 @@ app.post('/orders', (req, res) => {
 
   // Validate stock and calculate total
   for (const orderItem of orderItems) {
-    const item = inventory.find(i => i.id === orderItem.id);
+    let item;
+    if (orderItem.name) {
+      item = inventory.find(i => i.name.toLowerCase() === orderItem.name.toLowerCase());
+    } else if (orderItem.id) {
+      item = inventory.find(i => i.id === orderItem.id);
+    }
+
     if (!item) {
-      return res.status(404).json({ error: `Item with id ${orderItem.id} not found` });
+      return res.status(404).json({ error: `Item '${orderItem.name || orderItem.id}' not found` });
     }
     if (item.quantity < orderItem.quantity) {
       return res.status(400).json({ error: `Insufficient stock for ${item.name}` });

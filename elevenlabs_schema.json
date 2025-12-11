@@ -1,0 +1,99 @@
+[
+  {
+    "name": "get_inventory",
+    "description": "Retrieves the full list of inventory items, including their details like price and quantity.",
+    "parameters": {
+      "type": "object",
+      "properties": {}
+    }
+  },
+  {
+    "name": "update_inventory_item",
+    "description": "Updates the details (price, quantity, name) of a specific inventory item by its ID. Provide only the fields you want to update.",
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "description": "The unique ID of the inventory item to update."
+        },
+        "price": {
+          "type": "number",
+          "description": "The new price of the item."
+        },
+        "quantity": {
+          "type": "integer",
+          "description": "The new quantity of the item."
+        },
+        "name": {
+          "type": "string",
+          "description": "The new name of the item."
+        }
+      },
+      "required": [
+        "id"
+      ]
+    }
+  },
+  {
+    "name": "update_inventory_by_name",
+    "description": "Updates the details of an inventory item by looking it up by name.",
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "The name of the item to update (e.g., 'Pizza')."
+        },
+        "quantity": {
+          "type": "integer",
+          "description": "The new quantity of the item."
+        }
+      },
+      "required": [
+        "name"
+      ]
+    }
+  },
+  {
+    "name": "get_low_stock_items",
+    "description": "Retrieves a list of items that have a quantity of less than 10. Useful for checking what needs restocking.",
+    "parameters": {
+      "type": "object",
+      "properties": {}
+    }
+  },
+  {
+    "name": "place_order",
+    "description": "Places a new order for one or more items. Reduces inventory stock accordingly.",
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "items": {
+          "type": "array",
+          "description": "List of items to order. Each item must have an 'id' and 'quantity'.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string",
+                "description": "Name of the item."
+              },
+              "quantity": {
+                "type": "integer",
+                "description": "Quantity to order."
+              }
+            },
+            "required": [
+              "name",
+              "quantity"
+            ]
+          }
+        }
+      },
+      "required": [
+        "items"
+      ]
+    }
+  }
+]
