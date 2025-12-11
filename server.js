@@ -193,7 +193,7 @@ app.post('/orders', (req, res) => {
     id: `ORD-${String(orders.length + 1).padStart(3, '0')}`,
     supplier,
     items: transformedItems,
-    status: 'low-stock', // Initial status
+    status: 'order-placed',
     orderDate: new Date().toISOString().split('T')[0],
     totalValue: totalValue || 0
   };
