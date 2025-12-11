@@ -37,6 +37,33 @@ const writeData = (file, data) => {
   }
 };
 
+// Fuzzy name matching helper
+const normalizeString = (str) => {
+  return str
+    .toLowerCase()
+    .trim()
+    .replace(/[^\w\s]/g, '') // Remove special characters
+    .replace(/s+$/, '') // Remove trailing 's'
+    .replace(/\s+/g, ' '); // Normalize whitespace
+};
+
+const findItemByName = (inventory, searchName) => {
+  const normalized = normalizeString(searchName);
+
+  // First try exact match
+  let item = inventory.find(i => normalizeString(i.name) === normalized);
+
+  // If not found, try partial match
+  if (!item) {
+    item = inventory.find(i => {
+      const invNormalized = normalizeString(i.name);
+      return invNormalized.includes(normalized) || normalized.includes(invNormalized);
+    });
+  }
+
+  return item;
+};
+
 // --- INVENTORY APIs ---
 
 // 1. Get Inventory
@@ -127,18 +154,45 @@ app.get('/orders', (req, res) => {
 
 // 6. Place New Order
 app.post('/orders', (req, res) => {
-  const { supplier, items, totalValue } = req.body;
+  let { supplier, items, totalValue } = req.body;
 
-  // Basic validation
-  if (!supplier || !items || !Array.isArray(items)) {
-    return res.status(400).json({ error: 'Invalid order structure. Requires supplier, items string[].' });
+  // Basic validation - only items required
+  if (!items || !Array.isArray(items) || items.length === 0) {
+    return res.status(400).json({ error: 'Invalid order structure. Requires items array with name and quantity.' });
+  }
+
+  const inventory = readData(INVENTORY_FILE);
+
+  // Transform items from {name, quantity} to {id, itemName, quantity, unit, price} format
+  const transformedItems = items.map((item, index) => {
+    const searchName = item.name || item.itemName || '';
+    const invItem = findItemByName(inventory, searchName);
+    return {
+      id: `item-${Date.now()}-${index}`,
+      itemName: invItem ? invItem.name : searchName, // Use actual inventory name if found
+      quantity: item.quantity,
+      unit: invItem ? invItem.unit : 'units',
+      price: invItem ? invItem.unitCost : 0
+    };
+  });
+
+  // If no supplier provided, try to get from first item's inventory
+  if (!supplier) {
+    const firstItemName = items[0].name || items[0].itemName;
+    const invItem = findItemByName(inventory, firstItemName);
+    supplier = invItem ? invItem.supplier : 'Unknown Supplier';
+  }
+
+  // Calculate total if not provided
+  if (!totalValue) {
+    totalValue = transformedItems.reduce((sum, item) => sum + (item.price * item.quantity), 0);
   }
 
   const orders = readData(ORDERS_FILE);
   const newOrder = {
     id: `ORD-${String(orders.length + 1).padStart(3, '0')}`,
     supplier,
-    items,
+    items: transformedItems,
     status: 'low-stock', // Initial status
     orderDate: new Date().toISOString().split('T')[0],
     totalValue: totalValue || 0
