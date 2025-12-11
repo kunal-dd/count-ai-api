@@ -54,6 +54,24 @@ app.put('/inventory/:id', (req, res) => {
   res.json(inventory[itemIndex]);
 });
 
+// 3. Update inventory item by name
+app.put('/inventory/name/:name', (req, res) => {
+  const name = req.params.name.trim().toLowerCase();
+  const updates = req.body;
+  const inventory = readData(INVENTORY_FILE);
+
+  const itemIndex = inventory.findIndex(item => item.name.toLowerCase() === name);
+  if (itemIndex === -1) {
+    return res.status(404).json({ error: `Item '${req.params.name}' not found` });
+  }
+
+  // Merge updates
+  inventory[itemIndex] = { ...inventory[itemIndex], ...updates };
+  writeData(INVENTORY_FILE, inventory);
+
+  res.json(inventory[itemIndex]);
+});
+
 // 3. Get low stock items
 app.get('/inventory/low-stock', (req, res) => {
   const inventory = readData(INVENTORY_FILE);
